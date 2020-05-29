@@ -1,0 +1,35 @@
+body {
+    background-color: powderblue;
+}
+
+h1 {
+    color: blue;
+}
+
+p {
+    font-size: 2rem;
+}
+
+.score, .key, .result {
+    border: .4rem solid black;
+    border-radius: .5rem;
+    margin: 1rem;
+    font-size: 1.5rem;
+    padding: 1rem .5rem;
+    text-align: center;
+    color: white;
+    background: rgba(0,0,0,0.4);
+    text-shadow: 0 0 .5rem black;
+}
+
+.score {
+    width: 33rem;
+}
+
+.key {
+    width: 10rem;
+  }
+
+.result {
+    width: 33rem;
+}

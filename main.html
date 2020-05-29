@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>TESTS</title>
+  <meta charset="UTF-8"/>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="score"></div>
+    <div class="keys">
+        <button id="82" class="key">
+            <p>Rock</p>
+            <kbd>R</kbd>
+        </button>
+        <button id="80" class="key">
+            <p>Paper</p>
+            <kbd>P</kbd>
+        </button>
+        <button id="83" class="key">
+            <p>Scissors</p>
+            <kbd>S</kbd>
+        </button>
+    </div>
+    <div class="result"></div>  
+<script>
+    let plays = ["Rock", "Paper", "Scissors"];
+    let computerPlay = () => plays[Math.floor(Math.random() * 3)];
+    let pointsPlayer = 0;
+    let pointsComputer = 0;
+    let gamesNumber = 0;
+
+    function showResult(text) {
+        const paragraph = document.querySelector('.result');
+        paragraph.textContent = text;
+        const score = document.querySelector('.score');
+        score.textContent = `Games: ${gamesNumber} <-----> Score: ${pointsPlayer} : ${pointsComputer}` 
+    }
+
+    function playRound(playerSelection) {      
+        computerSelection = computerPlay();
+        let playerWins = null;
+
+        gamesNumber++;
+        switch (hasPlayerWon(playerSelection, computerSelection)) {
+            case true: pointsPlayer++; showResult(`You Win! ${playerSelection} beats ${computerSelection}`); break;
+            case false: pointsComputer++; showResult(`You Lose! ${computerSelection} beats ${playerSelection}`); break;
+            default: showResult(`Tie! You both chose ${playerSelection}`);
+        }
+    }
+
+    function hasPlayerWon(playerSelection, computerSelection) {
+        if (playerSelection == "Rock") {
+            console.log(playerSelection);
+            switch (computerSelection) {
+                case ("Rock") : playerWins = null; break;
+                case ("Paper") : playerWins = false; break;
+                case ("Scissors") : playerWins = true; break;
+            }
+        } else if (playerSelection == "Paper") {
+            switch (computerSelection) {
+                case ("Rock") : playerWins = true; break;
+                case ("Paper") : playerWins = null; break;
+                case ("Scissors") : playerWins = false; break;
+            }
+        } else {
+            switch (computerSelection) {
+                case ("Rock") : playerWins = false; break;
+                case ("Paper") : playerWins = true; break;
+                case ("Scissors") : playerWins = null; break;
+            }
+        }
+        return playerWins;
+    }
+
+    function eventPlayed(id) {
+        switch (id) {
+            case 82: playRound(plays[0]); break;
+            case 80: playRound(plays[1]); break;
+            case 83: playRound(plays[2]); break;
+            default: showResult("Wrong key"); console.log("Error"); return;
+        }
+    }
+
+    const buttons = Array.from(document.querySelectorAll('button'));
+    buttons.forEach((button) => button.addEventListener('click', (e) => {eventPlayed(parseInt(button.id))}));
+    window.addEventListener('keydown', (e) => eventPlayed(e.keyCode));
+  </script>
+</body>
+</html>
